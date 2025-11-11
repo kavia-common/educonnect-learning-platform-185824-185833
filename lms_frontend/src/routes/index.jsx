@@ -72,9 +72,9 @@ export default function AppRoutes() {
             <Route path="/dashboard/student" element={<StudentDashboard />} />
           </Route>
 
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/auth/login" element={<Login />} />
+          <Route path="/auth/register" element={<Register />} />
+          <Route path="/auth/forgot-password" element={<ForgotPassword />} />
 
           <Route path="*" element={<div style={{ padding: 24 }}>Not Found</div>} />
         </Routes>

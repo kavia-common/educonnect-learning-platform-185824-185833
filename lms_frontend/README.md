@@ -55,7 +55,7 @@ Notes:
   - /dashboard/admin         Admin dashboard (admin only)
   - /dashboard/instructor    Instructor dashboard (instructor only)
   - /dashboard/student       Student dashboard (student only)
-  - /login, /register, /forgot-password (public)
+  - /auth/login, /auth/register, /auth/forgot-password (public)
 
 ProtectedRoute supports roles: student, instructor, admin.
 

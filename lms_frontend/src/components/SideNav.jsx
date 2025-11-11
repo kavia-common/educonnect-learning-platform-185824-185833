@@ -15,7 +15,6 @@ export default function SideNav() {
     { to: '/courses', label: 'Courses' },
     { to: '/learning', label: 'Learning' },
     { to: '/assessments', label: 'Assessments' },
-    { to: '/assignments', label: 'Assignments' }, // single assignments link
     { to: '/grades', label: 'Grades' },
     { to: '/analytics', label: 'Analytics' },
     { to: '/notifications', label: 'Notifications' },
@@ -49,6 +48,14 @@ export default function SideNav() {
             {l.label}
           </NavLink>
         ))}
+        {!user && (
+          <NavLink
+            to="/auth/login"
+            className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}
+          >
+            Sign in
+          </NavLink>
+        )}
       </nav>
     </aside>
   );

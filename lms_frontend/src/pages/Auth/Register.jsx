@@ -10,7 +10,7 @@ export default function Register() {
   async function handle(e) {
     e.preventDefault();
     await apiClient.register(form);
-    nav('/login');
+    nav('/auth/login');
   }
 
   return (
