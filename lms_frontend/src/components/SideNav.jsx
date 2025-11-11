@@ -48,14 +48,7 @@ export default function SideNav() {
             {l.label}
           </NavLink>
         ))}
-        {!user && (
-          <NavLink
-            to="/auth/login"
-            className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}
-          >
-            Sign in
-          </NavLink>
-        )}
+        
       </nav>
     </aside>
   );

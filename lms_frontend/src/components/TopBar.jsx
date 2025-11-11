@@ -28,7 +28,7 @@ export default function TopBar() {
             </div>
           </div>
         ) : (
-          <Link className="btn btn-primary" to="/auth/login">Sign in</Link>
+          <Link className="btn btn-primary" to="/login">Sign in</Link>
         )}
       </div>
     </header>

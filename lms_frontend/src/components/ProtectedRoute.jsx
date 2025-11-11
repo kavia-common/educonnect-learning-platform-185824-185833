@@ -7,7 +7,7 @@ export default function ProtectedRoute({ roles }) {
   const { user, loading } = useAuthContext();
 
   if (loading) return <div style={{ padding: 24 }}>Loading...</div>;
-  if (!user) return <Navigate to="/auth/login" replace />;
+  if (!user) return <Navigate to="/login" replace />;
 
   if (roles && roles.length > 0 && !roles.includes(user.role)) {
     return <div style={{ padding: 24 }}>403 Forbidden</div>;

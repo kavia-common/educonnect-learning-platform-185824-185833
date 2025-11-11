@@ -17,7 +17,7 @@ import Users from '../pages/Users';
 import Settings from '../pages/Settings';
 import Notifications from '../pages/Notifications';
 import Profile from '../pages/Profile';
-import Login from '../pages/Auth/Login';
+import Login from '../pages/Login';
 import Register from '../pages/Auth/Register';
 import ForgotPassword from '../pages/Auth/ForgotPassword';
 import AdminDashboard from '../pages/AdminDashboard';
@@ -72,6 +72,7 @@ export default function AppRoutes() {
             <Route path="/dashboard/student" element={<StudentDashboard />} />
           </Route>
 
+          <Route path="/login" element={<Login />} />
           <Route path="/auth/login" element={<Login />} />
           <Route path="/auth/register" element={<Register />} />
           <Route path="/auth/forgot-password" element={<ForgotPassword />} />
