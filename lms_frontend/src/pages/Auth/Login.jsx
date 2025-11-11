@@ -21,9 +21,8 @@ export default function Login() {
   }, [identifier, password, submitting]);
 
   function getRedirectTarget() {
-    // If coming from a protected route, react-router may pass state = { from: { pathname } }
-    const from = location.state && location.state.from && location.state.from.pathname;
-    return from || '/';
+    // Always send to Home after successful login
+    return '/';
   }
 
   async function handleSubmit(e) {

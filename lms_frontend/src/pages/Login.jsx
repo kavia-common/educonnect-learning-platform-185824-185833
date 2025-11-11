@@ -23,8 +23,8 @@ export default function Login() {
   }, [emailValid, passwordValid, submitting]);
 
   function getRedirectTarget() {
-    const from = location.state && location.state.from && location.state.from.pathname;
-    return from || '/';
+    // Always go to Home after login per requirement
+    return '/';
   }
 
   async function handleSubmit(e) {
