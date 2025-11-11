@@ -1,0 +1,20 @@
+{
+  "courses": [
+    { "id": "c1", "title": "Intro to CS", "description": "Foundations of computing", "lessons": 12, "level": "Beginner", "modules": ["Basics", "Algorithms", "Data"] , "instructor": "Dr. Ada"},
+    { "id": "c2", "title": "Software Engineering", "description": "Building robust systems", "lessons": 16, "level": "Intermediate", "modules": ["Requirements", "Design", "Testing"], "instructor": "Dr. Linus" },
+    { "id": "c3", "title": "Data Science", "description": "From data to insights", "lessons": 18, "level": "Advanced", "modules": ["Pandas", "Visualization", "ML"], "instructor": "Dr. Grace" }
+  ],
+  "notifications": [
+    { "title": "Assignment due", "body": "Project proposal due next week." },
+    { "title": "New course", "body": "Check out 'Cloud Computing'." }
+  ],
+  "users": [
+    { "name": "Alex Student", "email": "alex@example.com", "role": "student" },
+    { "name": "Ivy Instructor", "email": "ivy@example.com", "role": "instructor" },
+    { "name": "Admin One", "email": "admin@example.com", "role": "admin" }
+  ],
+  "grades": [
+    { "course": "Intro to CS", "grade": "A-" },
+    { "course": "Software Engineering", "grade": "B+" }
+  ]
+}

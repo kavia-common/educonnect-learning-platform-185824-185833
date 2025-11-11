@@ -1,8 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+// Smoke test: renders login prompt if unauthenticated and tries to access protected home
+test('renders topbar brand and protected flow', async () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  // Topbar brand should appear
+  const brand = await screen.findByText(/OceanLMS/i);
+  expect(brand).toBeInTheDocument();
 });

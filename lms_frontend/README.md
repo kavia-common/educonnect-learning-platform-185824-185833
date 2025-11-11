@@ -1,82 +1,84 @@
-# Lightweight React Template for KAVIA
+# OceanLMS Frontend (React + CRA)
 
-This project provides a minimal React template with a clean, modern UI and minimal dependencies.
+A modern LMS frontend with TopBar + SideNav layout, Ocean Professional theme, role-based routing, REST/WS clients, feature flags, and minimal dependencies.
 
-## Features
+## Quick Start
 
-- **Lightweight**: No heavy UI frameworks - uses only vanilla CSS and React
-- **Modern UI**: Clean, responsive design with KAVIA brand styling
-- **Fast**: Minimal dependencies for quick loading times
-- **Simple**: Easy to understand and modify
+- Node 18+
+- Install deps:
+  - npm install
+- Start dev server:
+  - npm start
 
-## Getting Started
+## Environment Variables
 
-In the project directory, you can run:
+Create a .env file at the project root with the following (example):
 
-### `npm start`
-
-Runs the app in development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-### `npm test`
-
-Launches the test runner in interactive watch mode.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-## Customization
-
-### Colors
-
-The main brand colors are defined as CSS variables in `src/App.css`:
-
-```css
-:root {
-  --kavia-orange: #E87A41;
-  --kavia-dark: #1A1A1A;
-  --text-color: #ffffff;
-  --text-secondary: rgba(255, 255, 255, 0.7);
-  --border-color: rgba(255, 255, 255, 0.1);
-}
+```
+REACT_APP_API_BASE=http://localhost:4000
+REACT_APP_BACKEND_URL=http://localhost:4000
+REACT_APP_WS_URL=ws://localhost:4000/ws
+REACT_APP_LOG_LEVEL=info
+REACT_APP_FEATURE_FLAGS={"mockApi":true}
+REACT_APP_EXPERIMENTS_ENABLED=false
 ```
 
-### Components
+Notes:
+- REACT_APP_API_BASE and REACT_APP_BACKEND_URL are used by the HTTP client and optional proxy.
+- If WS is unavailable, the app will gracefully skip connecting.
 
-This template uses pure HTML/CSS components instead of a UI framework. You can find component styles in `src/App.css`. 
+## Layout and Theme
 
-Common components include:
-- Buttons (`.btn`, `.btn-large`)
-- Container (`.container`)
-- Navigation (`.navbar`)
-- Typography (`.title`, `.subtitle`, `.description`)
+- Global theme tokens: src/styles/theme.css
+- App shell:
+  - TopBar (src/components/TopBar.jsx)
+  - SideNav (src/components/SideNav.jsx)
+  - Content area with responsive grid utilities in App.css/index.css
 
-## Learn More
+## Routing
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Implemented with react-router-dom v6
+- Route map:
+  - /                        Home (protected)
+  - /courses                 Courses (protected)
+  - /courses/:id             CourseDetail (protected)
+  - /learning                Learning (protected)
+  - /assessments             Assessments (protected)
+  - /assignments             Assignments (protected)
+  - /grades                  Grades (protected)
+  - /gradebook               Gradebook (protected)
+  - /analytics               Analytics (protected)
+  - /notifications           Notifications (protected)
+  - /settings                Settings (protected)
+  - /profile                 Profile (protected)
+  - /users                   Users (admin only)
+  - /dashboard/admin         Admin dashboard (admin only)
+  - /dashboard/instructor    Instructor dashboard (instructor only)
+  - /dashboard/student       Student dashboard (student only)
+  - /login, /register, /forgot-password (public)
 
-### Code Splitting
+ProtectedRoute supports roles: student, instructor, admin.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Feature Flags
 
-### Analyzing the Bundle Size
+- REACT_APP_FEATURE_FLAGS: JSON map. Example: {"mockApi":true}
+- REACT_APP_EXPERIMENTS_ENABLED: boolean
+- See utils/featureFlags.js
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## API and WS Clients
 
-### Making a Progressive Web App
+- REST: utils/http.js (fetch) + services/apiClient.js
+  - Reads REACT_APP_API_BASE or REACT_APP_BACKEND_URL
+  - Mock mode via feature flag mockApi (default true)
+- WebSocket: services/wsClient.js
+  - Reads REACT_APP_WS_URL
+  - Integrates with toast notifications
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Tests
 
-### Advanced Configuration
+- Minimal smoke test in src/App.test.js ensuring the app renders and shell loads.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Notes
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Keep dependencies minimal (only react-router-dom).
+- Simple SVG charts (no external chart libs).
