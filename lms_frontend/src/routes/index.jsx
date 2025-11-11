@@ -1,8 +1,9 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import TopBar from '../components/TopBar';
 import SideNav from '../components/SideNav';
 import ProtectedRoute from '../components/ProtectedRoute';
 import Toasts from '../components/Toast';
+import { useAuthContext } from '../state/authContext';
 
 import Home from '../pages/Home';
 import Courses from '../pages/Courses';
@@ -37,13 +38,44 @@ function ShellLayout({ children }) {
   );
 }
 
+function PublicLayout({ children }) {
+  // A minimal layout for public pages (no TopBar/SideNav content area)
+  return (
+    <>
+      <TopBar />
+      <main style={{ minHeight: 'calc(100vh - 64px)' }}>
+        {children}
+      </main>
+      <Toasts />
+    </>
+  );
+}
+
+function DefaultRouteRedirect() {
+  // Redirect root to / or /login based on auth via ProtectedRoute grouping already,
+  // but ensure a clean default when visiting "/" by gating through ProtectedRoute.
+  return <Navigate to="/" replace />;
+}
+
+function NotFoundRedirect() {
+  const { user } = useAuthContext();
+  const location = useLocation();
+  // Unknown route: if not authenticated, redirect to login with return path
+  if (!user) {
+    return <Navigate to="/login" state={{ from: location }} replace />;
+  }
+  // If authenticated, send to home
+  return <Navigate to="/" replace />;
+}
+
 // PUBLIC_INTERFACE
 export default function AppRoutes() {
-  /** Defines all app routes with protection and role-based gates. */
+  /** Defines all app routes with protection, role-based gates, and unauthenticated default to /login. */
   return (
     <BrowserRouter>
-      <ShellLayout>
-        <Routes>
+      <Routes>
+        {/* Protected application shell */}
+        <Route element={<ShellLayout />}>
           <Route element={<ProtectedRoute />}>
             <Route path="/" element={<Home />} />
             <Route path="/courses" element={<Courses />} />
@@ -71,15 +103,22 @@ export default function AppRoutes() {
           <Route element={<ProtectedRoute roles={['student']} />}>
             <Route path="/dashboard/student" element={<StudentDashboard />} />
           </Route>
+        </Route>
 
+        {/* Public auth pages */}
+        <Route element={<PublicLayout />}>
           <Route path="/login" element={<Login />} />
-          <Route path="/auth/login" element={<Login />} />
+          <Route path="/auth/login" element={<Navigate to="/login" replace />} />
           <Route path="/auth/register" element={<Register />} />
           <Route path="/auth/forgot-password" element={<ForgotPassword />} />
+        </Route>
 
-          <Route path="*" element={<div style={{ padding: 24 }}>Not Found</div>} />
-        </Routes>
-      </ShellLayout>
+        {/* Default redirect (no path) could route to "/" which is guarded */}
+        <Route path="" element={<DefaultRouteRedirect />} />
+
+        {/* Catch-all: redirect based on auth presence */}
+        <Route path="*" element={<NotFoundRedirect />} />
+      </Routes>
     </BrowserRouter>
   );
 }

@@ -5,7 +5,7 @@ const AuthContext = createContext(null);
 
 // PUBLIC_INTERFACE
 export function AuthProvider({ children }) {
-  /** Provides user auth state and helpers. */
+  /** Provides user auth state and helpers. Initial getMe() determines gating of protected routes. */
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(true);
