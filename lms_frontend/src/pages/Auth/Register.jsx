@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import PageContainer from '../../components/PageContainer';
 import { apiClient } from '../../services/apiClient';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 export default function Register() {
   const nav = useNavigate();
@@ -29,6 +29,10 @@ export default function Register() {
           <input className="input" type="password" value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} required />
         </div>
         <button className="btn btn-primary" type="submit">Register</button>
+        <div style={{ marginTop: 10, fontSize: 14 }}>
+          <span className="text-muted">Already have an account? </span>
+          <Link to="/login">Sign in</Link>
+        </div>
       </form>
     </PageContainer>
   );

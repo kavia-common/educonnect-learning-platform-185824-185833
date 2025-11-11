@@ -24,6 +24,7 @@ import ForgotPassword from '../pages/Auth/ForgotPassword';
 import AdminDashboard from '../pages/AdminDashboard';
 import InstructorDashboard from '../pages/InstructorDashboard';
 import StudentDashboard from '../pages/StudentDashboard';
+import Signup from '../pages/Signup';
 
 function ShellLayout({ children }) {
   return (
@@ -108,6 +109,7 @@ export default function AppRoutes() {
         {/* Public auth pages */}
         <Route element={<PublicLayout />}>
           <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
           <Route path="/auth/login" element={<Navigate to="/login" replace />} />
           <Route path="/auth/register" element={<Register />} />
           <Route path="/auth/forgot-password" element={<ForgotPassword />} />
