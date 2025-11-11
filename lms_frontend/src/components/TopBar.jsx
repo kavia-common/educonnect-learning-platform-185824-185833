@@ -14,8 +14,8 @@ export default function TopBar() {
         ☰
       </button>
       <Link to="/" className="brand">
-        <span className="brand-logo">🌊</span>
-        <span className="brand-name">OceanLMS</span>
+        <span className="brand-logo">🎓</span>
+        <span className="brand-name">LMS</span>
       </Link>
       <div className="topbar-actions">
         <Link to="/notifications" className="icon-btn" aria-label="Notifications">🔔</Link>

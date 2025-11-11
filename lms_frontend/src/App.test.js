@@ -5,6 +5,6 @@ import App from './App';
 test('renders topbar brand and protected flow', async () => {
   render(<App />);
   // Topbar brand should appear
-  const brand = await screen.findByText(/OceanLMS/i);
+  const brand = await screen.findByText(/LMS/i);
   expect(brand).toBeInTheDocument();
 });
