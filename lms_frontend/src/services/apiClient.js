@@ -4,11 +4,20 @@ import placeholder from '../assets/mock/placeholder.json';
 
 const MOCK = isFeatureEnabled('mockApi', true);
 
+/**
+ * In mock mode, we want the app to start unauthenticated by default so ProtectedRoute redirects to /login.
+ * Therefore, getMe() should not auto-authenticate. It should return null to indicate "no active session".
+ * The explicit login() call will return a mock token and user to simulate an authenticated session.
+ */
+
 // PUBLIC_INTERFACE
 export const apiClient = {
   /** REST API client for LMS. Uses mock data when mockApi flag is true. */
   async getMe() {
-    if (MOCK) return { id: 'u1', name: 'Alex Student', role: 'student', email: 'alex@example.com' };
+    if (MOCK) {
+      // No persisted token/session in this mock; treat as not logged in on initial load.
+      return null;
+    }
     return httpRequest('/me');
   },
   async login(email, password) {
